@@ -44,8 +44,8 @@ from datetime import datetime
 # Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from SpatialValenceToCoordGeneration import SpatialValenceToCoordGeneration
-from EngramManager import EngramManager
+from LTM.EnhancedSpatialValenceProcessor import EnhancedSpatialValenceToCoordGeneration, SemanticDepth
+from LTM.EngramManager import EngramManager
 
 class SemanticSTMManager:
     """
@@ -81,8 +81,8 @@ class SemanticSTMManager:
         self.save_file_b = "DigitalEngramEdgeV2/shortTermMemory/stm_cache_B.json"
         self.current_save_target = 'A'  # Alternates between A and B
         
-        # INTEGRATION: Spatial memory system
-        self.coord_system = SpatialValenceToCoordGeneration()
+        # INTEGRATION: Enhanced Spatial memory system with DEEP mode for maximum consistency
+        self.coord_system = EnhancedSpatialValenceToCoordGeneration(SemanticDepth.DEEP)
         self.engram_manager = None  # Lazy load to avoid circular imports
         
         # STATISTICS
@@ -102,7 +102,8 @@ class SemanticSTMManager:
             print(f"📊 Max entries: {max_entries}")
             print(f"⏰ Save interval: {save_interval}s")
             print(f"🔄 Rolling saves: A/B alternating")
-            print("🚀 RAM-first hybrid storage")
+            print("🚀 RAM-first hybrid storage with DEEP semantic analysis")
+            print(f"🎯 Processing Mode: SemanticDepth.DEEP (Maximum consistency)")
         
         # Load existing STM on startup
         self._load_stm_from_disk()
